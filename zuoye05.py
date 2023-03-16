@@ -1,3 +1,4 @@
+import numpy as np
 from PIL import Image
 def handleImgMethod02():
     img = Image.open('./bg_imgs/03.png')
@@ -25,4 +26,24 @@ def handleImgMethod02():
         bgImg.paste(img, box=box)
     bgImg.show()
 
-handleImgMethod02()
+
+
+def handleImgMethod03():
+    img = Image.open('./bg_imgs/03.png')
+    w, h = img.size
+    imgDataList = []
+    for row in range(2):
+        for col in range(2):
+            box = (col * w // 2, row * h // 2, (col + 1) * w // 2, (row + 1) * h // 2)
+            imgCrop = img.crop(box=box)
+            data = np.array(imgCrop)
+            print(data)
+            imgDataList.append(data)
+    imgDataUp = np.concatenate((imgDataList[0], imgDataList[1]), axis=1)
+    imgDataDown = np.concatenate((imgDataList[2], imgDataList[3]), axis=1)
+    oriImageData = np.concatenate((imgDataUp, imgDataDown), axis=0)
+    oriImage = Image.fromarray(oriImageData)
+    oriImage.show()
+
+# handleImgMethod02()
+handleImgMethod03()
