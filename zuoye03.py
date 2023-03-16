@@ -38,3 +38,4 @@ for data in datasInfo:
     image = Image.open(f'./bg_imgs/{img}')
     image.paste(img_copy_new, box=point)
     image.show()
+file.close()
